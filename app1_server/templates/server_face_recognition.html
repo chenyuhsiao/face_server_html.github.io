@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>face_recognition</title>
+    <link rel="stylesheet" type="text/css" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+    <script>
+        function readURL(input){
+          if(input.files && input.files[0]){
+            var imageTagID = input.getAttribute("targetID");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               var img = document.getElementById(imageTagID);
+               img.setAttribute("src", e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+        
+    </script>
+    <!__消息框顏色__>
+    <style>
+      .alert {
+        padding: 20px;
+        background-color: #000000;
+        color: rgb(255, 255, 255);
+      }
+      
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .closebtn:hover {
+        color: black;
+      }
+      </style>
+</head>
+<body>
+<div class="container">
+    <h1>face recognition</h1>
+    <hr>
+    <h2>上傳想要訓練的圖片</h2>
+    <hr>
+        <form action="/upload_pic" method="POST" enctype=multipart/form-data>
+        <input type="file" name="file" onchange="readURL(this)" targetID="preview_img" accept="image/gif, image/jpeg, image/png">
+        <br>
+        <img id="preview_img" src="#" width=200 height=300>
+        <input type="submit" class="btn btn-primary" name="upload" value="上傳圖片">
+        <br>
+        <br>
+        <label>請輸入全名:</label>
+        <input type="text" name="user">
+        </form>
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;
+          </span>
+        <h1>上傳人是{{name1}}</h1>
+        </div>
+        
+    <hr>
+    <h2>臉部辨識</h2>
+    <hr>
+        <form action="/recognize_pic" method="POST"  enctype=multipart/form-data>
+        <input type="file" name="file" onchange="readURL(this)" targetID="preview_img1" accept="image/gif, image/jpeg, image/png">
+        <br>
+        <img id="preview_img1" src="#" width=200 height=300>
+        
+        <input type="submit" class="btn btn-primary" name="download" value="開始辨識">
+        </form>
+
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;
+          </span>
+        <h1>這個人是{{output}}</h1>
+        </div>
+</div>
+</body>
+</html>
